@@ -215,6 +215,7 @@ public abstract class AbstractTS<E> {
 	public Solution<E> solve() {
 
 		bestSol = createEmptySol();
+		long startTime = System.currentTimeMillis();
 		constructiveHeuristic();
 		TL = makeTL();
 		for (int i = 0; i < iterations; i++) {
@@ -224,6 +225,8 @@ public abstract class AbstractTS<E> {
 				if (verbose)
 					System.out.println("(Iter. " + i + ") BestSol = " + bestSol);
 			}
+			if ( System.currentTimeMillis() - startTime > 30 * 60000) // 30 min timelimit
+				break;
 		}
 
 		return bestSol;
