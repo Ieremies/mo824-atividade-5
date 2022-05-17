@@ -190,15 +190,18 @@ public class TS_QBF extends AbstractTS<Integer> {
 	 * 
 	 */
 	public static void main(String[] args) throws IOException {
-
-		long startTime = System.currentTimeMillis();
-		TS_QBF tabusearch = new TS_QBF(20, 1000, "instances/qbf/qbf100");
-		Solution<Integer> bestSol = tabusearch.solve();
-		System.out.println("maxVal = " + bestSol);
-		long endTime   = System.currentTimeMillis();
-		long totalTime = endTime - startTime;
-		System.out.println("Time = "+(double)totalTime/(double)1000+" seg");
-
+		String[] instâncias = {"020", "040", "060","080","100","200","400"};
+		for (String inst  : instâncias) {
+			long startTime = System.currentTimeMillis();
+			System.out.println("Instância > " + inst);
+			TS_QBF tabusearch = new TS_QBF(20, 1000, "instances/kqbf/kqbf" + inst);
+			Solution<Integer> bestSol = tabusearch.solve();
+			System.out.println("maxVal = " + bestSol);
+			long endTime   = System.currentTimeMillis();
+			long totalTime = endTime - startTime;
+			System.out.println("Time = "+(double)totalTime/(double)1000+" seg");
+		}
+		System.out.println(">---------------FIM---------------<");
 	}
 
 }
