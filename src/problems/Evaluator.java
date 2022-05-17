@@ -75,4 +75,6 @@ public interface Evaluator<E> {
 	 */
 	public abstract Double evaluateExchangeCost(E elemIn, E elemOut, Solution<E> sol);
 
+	public abstract Boolean canBeAdded(Integer bestCandIn, Solution<Integer> sol);
+
 }

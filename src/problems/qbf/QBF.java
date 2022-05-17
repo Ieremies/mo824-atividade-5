@@ -31,6 +31,16 @@ public class QBF implements Evaluator<Integer> {
 	public final Integer size;
 
 	/**
+	 * Maximum weight.
+	 */
+	public Integer W;
+
+	/**
+	 * The array of weights for the domain.
+	 */
+	public Integer[] weights;
+
+	/**
 	 * The array of numbers representing the domain.
 	 */
 	public final Double[] variables;
@@ -96,8 +106,24 @@ public class QBF implements Evaluator<Integer> {
 	public Double evaluate(Solution<Integer> sol) {
 
 		setVariables(sol);
+		sol.weight = evalueateWeightKQBF();
 		return sol.cost = evaluateQBF();
 
+	}
+
+	public Boolean canBeAdded(Integer elem, Solution<Integer> sol) {
+		return (sol.weight + weights[elem] <= W);
+	}
+
+	public Integer evalueateWeightKQBF() {
+
+		Integer sum = 0;
+
+		for (int i = 0; i < size; i++) {
+			sum += (int) (variables[i] * weights[i]);
+		}
+
+		return sum;
 	}
 
 	/**
@@ -278,6 +304,15 @@ public class QBF implements Evaluator<Integer> {
 
 		stok.nextToken();
 		Integer _size = (int) stok.nval;
+		stok.nextToken();
+		
+		W = (int) stok.nval;
+		weights = new Integer[_size];
+		for (int i = 0; i < _size; i++) {
+			stok.nextToken();
+			weights[i] = (int) stok.nval;
+		}
+
 		A = new Double[_size][_size];
 
 		for (int i = 0; i < _size; i++) {

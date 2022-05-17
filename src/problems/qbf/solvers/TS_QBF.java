@@ -49,7 +49,8 @@ public class TS_QBF extends AbstractTS<Integer> {
 		ArrayList<Integer> _CL = new ArrayList<Integer>();
 		for (int i = 0; i < ObjFunction.getDomainSize(); i++) {
 			Integer cand = new Integer(i);
-			_CL.add(cand);
+			if (sol == null || ObjFunction.canBeAdded(i, sol))
+				_CL.add(cand);
 		}
 
 		return _CL;
@@ -89,7 +90,13 @@ public class TS_QBF extends AbstractTS<Integer> {
 	@Override
 	public void updateCL() {
 
-		// do nothing
+		ArrayList<Integer> toBeRemoved = new ArrayList<Integer>();
+		for (Integer cand : CL)
+			if (!ObjFunction.canBeAdded(cand, sol))
+				toBeRemoved.add(cand);
+		
+		for (Integer remo : toBeRemoved)
+			CL.remove(remo);
 
 	}
 
